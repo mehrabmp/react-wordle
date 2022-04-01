@@ -1,0 +1,27 @@
+@use '../../styles/colors';
+
+.cell {
+  width: 60px;
+  height: 60px;
+  background-color: colors.$cell-background-color;
+  border-radius: 10px;
+  font-size: 2.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+}
+
+.absent {
+  background-color: colors.$color-absent;
+}
+
+.present {
+  background-color: colors.$color-present;
+}
+
+.correct {
+  background-color: colors.$color-correct;
+}
