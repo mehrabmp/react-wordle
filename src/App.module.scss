@@ -12,8 +12,15 @@ body {
   font-size: 62.5%;
   font-family: 'Roboto', sans-serif;
   background: colors.$background-color;
+  color: #fff;
   min-height: 100vh;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
 }
