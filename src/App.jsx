@@ -20,10 +20,7 @@ function App() {
 
   return (
     <div className={styles.container}>
-      <h1>
-        {currentGuess} $ {currentGuess.length}
-      </h1>
-      {/* <Grid /> */}
+      <Grid currentRow={currentRow} currentGuess={currentGuess} />
       <Keyboard
         onEnter={handleEnter}
         onDelete={handleDelete}
