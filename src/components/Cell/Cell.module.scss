@@ -12,16 +12,108 @@
   justify-content: center;
   align-items: center;
   cursor: default;
+
+  &-fill-animation {
+    animation: typeIn;
+    animation-duration: 0.2s;
+  }
+
+  &-reveal-animation {
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+
+    &.absent {
+      animation-name: revealAbsentCell;
+    }
+
+    &.correct {
+      animation-name: revealCorrectCell;
+    }
+
+    &.present {
+      animation-name: revealPresentCell;
+    }
+
+    .letter {
+      animation-duration: 0.3s;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+      animation-name: rotateLetter;
+    }
+  }
 }
 
-.absent {
-  background-color: colors.$color-absent;
+@keyframes typeIn {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
-.present {
-  background-color: colors.$color-present;
+@keyframes revealAbsentCell {
+  0% {
+    transform: rotateX(0deg);
+    background-color: colors.$cell-background-color;
+  }
+  50% {
+    background-color: colors.$cell-background-color;
+  }
+  50.5% {
+    background-color: colors.$color-absent;
+  }
+  100% {
+    transform: rotateX(180deg);
+    background-color: colors.$color-absent;
+  }
 }
 
-.correct {
-  background-color: colors.$color-correct;
+@keyframes revealPresentCell {
+  0% {
+    transform: rotateX(0deg);
+    background-color: colors.$cell-background-color;
+  }
+  50% {
+    background-color: colors.$cell-background-color;
+  }
+  50.5% {
+    background-color: colors.$color-present;
+  }
+  100% {
+    transform: rotateX(180deg);
+    background-color: colors.$color-present;
+  }
+}
+
+@keyframes revealCorrectCell {
+  0% {
+    transform: rotateX(0deg);
+    background-color: colors.$cell-background-color;
+  }
+  50% {
+    background-color: colors.$cell-background-color;
+  }
+  50.5% {
+    background-color: colors.$color-correct;
+  }
+  100% {
+    transform: rotateX(180deg);
+    background-color: colors.$color-correct;
+  }
+}
+
+@keyframes rotateLetter {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(180deg);
+  }
 }
