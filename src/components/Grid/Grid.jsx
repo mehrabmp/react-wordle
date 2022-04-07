@@ -1,15 +1,16 @@
 import styles from './Grid.module.scss';
 import Cell from '../Cell';
+import { MAX_CHALLENGES, MAX_WORD_LENGTH } from '../../constants/settings';
 
 const Grid = ({ currentGuess, guesses }) => {
-  const empties = Array(5 - guesses.length).fill();
+  const empties = Array(MAX_CHALLENGES - guesses.length - 1).fill();
 
   return (
     <div className={styles.grid}>
       {guesses.map((guess, i) => (
         <CompletedRow key={i} guess={guess} />
       ))}
-      {guesses.length < 5 && <CurrentRow guess={currentGuess} />}
+      {guesses.length < MAX_CHALLENGES && <CurrentRow guess={currentGuess} />}
       {empties.map((_, i) => (
         <EmptyRow key={i} />
       ))}
@@ -18,7 +19,7 @@ const Grid = ({ currentGuess, guesses }) => {
 };
 
 const CurrentRow = ({ guess }) => {
-  const emptyCells = Array(5 - guess.length).fill('');
+  const emptyCells = Array(MAX_WORD_LENGTH - guess.length).fill('');
   const cells = [...guess, ...emptyCells];
 
   return (
@@ -50,7 +51,7 @@ const CompletedRow = ({ guess }) => {
 };
 
 const EmptyRow = () => {
-  const cells = Array(5).fill();
+  const cells = Array(MAX_WORD_LENGTH).fill();
 
   return (
     <div className={styles.row}>
