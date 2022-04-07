@@ -4,8 +4,8 @@ import styles from './App.module.scss';
 import Keyboard from './components/Keyboard';
 
 function App() {
-  const [currentRow, setCurrentRow] = useState(1);
   const [currentGuess, setCurrentGuess] = useState('');
+  const [guesses, setGuesses] = useState([]);
 
   const handleDelete = () =>
     setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
@@ -14,13 +14,13 @@ function App() {
     currentGuess.length < 5 && setCurrentGuess(currentGuess + letter);
 
   const handleEnter = () => {
-    console.log('Enter');
-    console.log(currentGuess);
+    setGuesses([...guesses, currentGuess]);
+    setCurrentGuess('');
   };
 
   return (
     <div className={styles.container}>
-      <Grid currentRow={currentRow} currentGuess={currentGuess} />
+      <Grid currentGuess={currentGuess} guesses={guesses} />
       <Keyboard
         onEnter={handleEnter}
         onDelete={handleDelete}
