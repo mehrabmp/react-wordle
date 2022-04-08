@@ -1,9 +1,14 @@
 import styles from './Grid.module.scss';
 import Cell from '../Cell';
 import { MAX_CHALLENGES, MAX_WORD_LENGTH } from '../../constants/settings';
+import { getGuessStatuses } from '../../lib/words';
 
 const Grid = ({ currentGuess, guesses }) => {
-  const empties = Array(MAX_CHALLENGES - guesses.length - 1).fill();
+  const empties =
+    MAX_CHALLENGES > guesses.length
+      ? Array(MAX_CHALLENGES - guesses.length - 1).fill()
+      : [];
+  console.log(empties, guesses.length);
 
   return (
     <div className={styles.grid}>
@@ -33,7 +38,7 @@ const CurrentRow = ({ guess }) => {
 
 const CompletedRow = ({ guess }) => {
   const cells = guess.split('');
-  const statuses = ['absent', 'present', 'correct', 'absent', 'absent'];
+  const statuses = getGuessStatuses(guess);
 
   return (
     <div className={styles.row}>

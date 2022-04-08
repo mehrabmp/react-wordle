@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Grid from './components/Grid';
 import Keyboard from './components/Keyboard';
 import useLocalStorage from './hooks/useLocalStorage';
-import { getWordOfDay } from './lib/words';
+import { solution } from './lib/words';
 import styles from './App.module.scss';
 
 function App() {
@@ -22,17 +22,17 @@ function App() {
   // Save gameState to localStorage
   useEffect(() => {
     setBoardState({
-      gameStats: guesses,
-      solution: getWordOfDay(),
+      guesses,
+      solution,
     });
     // eslint-disable-next-line
   }, [guesses]);
 
-  const handleDelete = () =>
-    setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
-
   const handleKeyDown = letter =>
     currentGuess.length < 5 && setCurrentGuess(currentGuess + letter);
+
+  const handleDelete = () =>
+    setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
 
   const handleEnter = () => {
     setGuesses([...guesses, currentGuess]);
