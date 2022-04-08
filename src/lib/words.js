@@ -13,5 +13,5 @@ export const getWordOfDay = () => {
 };
 
 export const isWiningWord = word => {
-  return word === getWordOfDay();
+  return word.toLowerCase() === getWordOfDay();
 };
