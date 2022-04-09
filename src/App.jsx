@@ -2,15 +2,16 @@ import { useState, useEffect } from 'react';
 import Grid from './components/Grid';
 import Keyboard from './components/Keyboard';
 import useLocalStorage from './hooks/useLocalStorage';
-import { solution } from './lib/words';
+import { solution, isWordValid } from './lib/words';
 import styles from './App.module.scss';
 
 function App() {
   const [boardState, setBoardState] = useLocalStorage('boardState', {});
   const [currentGuess, setCurrentGuess] = useState('');
   const [guesses, setGuesses] = useState(() => {
-    return boardState.gameStats ?? [];
+    return boardState.guesses ?? [];
   });
+  const [isJiggling, setIsJiggling] = useState(false);
 
   // Show welcome modal
   useEffect(() => {
@@ -35,13 +36,21 @@ function App() {
     setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
 
   const handleEnter = () => {
+    if (currentGuess.length < 5) return setIsJiggling(true);
+    if (!isWordValid(currentGuess)) return setIsJiggling(true);
+
     setGuesses([...guesses, currentGuess]);
     setCurrentGuess('');
   };
 
   return (
     <div className={styles.container}>
-      <Grid currentGuess={currentGuess} guesses={guesses} />
+      <Grid
+        currentGuess={currentGuess}
+        guesses={guesses}
+        isJiggling={isJiggling}
+        setIsJiggling={setIsJiggling}
+      />
       <Keyboard
         onEnter={handleEnter}
         onDelete={handleDelete}

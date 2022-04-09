@@ -1,21 +1,31 @@
+import classNames from 'classnames';
 import styles from './Grid.module.scss';
 import Cell from '../Cell';
 import { MAX_CHALLENGES, MAX_WORD_LENGTH } from '../../constants/settings';
 import { getGuessStatuses } from '../../lib/words';
+import { useEffect } from 'react';
 
-const Grid = ({ currentGuess, guesses }) => {
+const Grid = ({ currentGuess, guesses, isJiggling, setIsJiggling }) => {
   const empties =
     MAX_CHALLENGES > guesses.length
       ? Array(MAX_CHALLENGES - guesses.length - 1).fill()
       : [];
-  console.log(empties, guesses.length);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (isJiggling) setIsJiggling(false);
+    }, 500);
+    // eslint-disable-next-line
+  }, [isJiggling]);
 
   return (
     <div className={styles.grid}>
       {guesses.map((guess, i) => (
         <CompletedRow key={i} guess={guess} />
       ))}
-      {guesses.length < MAX_CHALLENGES && <CurrentRow guess={currentGuess} />}
+      {guesses.length < MAX_CHALLENGES && (
+        <CurrentRow guess={currentGuess} isJiggling={isJiggling} />
+      )}
       {empties.map((_, i) => (
         <EmptyRow key={i} />
       ))}
@@ -23,12 +33,17 @@ const Grid = ({ currentGuess, guesses }) => {
   );
 };
 
-const CurrentRow = ({ guess }) => {
+const CurrentRow = ({ guess, isJiggling }) => {
   const emptyCells = Array(MAX_WORD_LENGTH - guess.length).fill('');
   const cells = [...guess, ...emptyCells];
 
+  const classes = classNames({
+    [styles.row]: true,
+    [styles.jiggle]: isJiggling,
+  });
+
   return (
-    <div className={styles.row}>
+    <div className={classes}>
       {cells.map((letter, index) => (
         <Cell key={index} value={letter} />
       ))}
