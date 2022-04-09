@@ -7,8 +7,8 @@ const Cell = ({ value, status, position, isCompleted }) => {
     [styles.absent]: status === 'absent',
     [styles.present]: status === 'present',
     [styles.correct]: status === 'correct',
-    [styles['cell-fill-animation']]: value,
-    [styles['cell-reveal-animation']]: isCompleted,
+    [styles.fill]: value,
+    [styles.reveal]: isCompleted,
   });
 
   const animationDelay = `${position * 0.35}s`;

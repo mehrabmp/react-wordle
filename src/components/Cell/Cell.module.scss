@@ -12,35 +12,35 @@
   justify-content: center;
   align-items: center;
   cursor: default;
+}
 
-  &-fill-animation {
-    animation: typeIn;
-    animation-duration: 0.2s;
+.fill {
+  animation: typeIn;
+  animation-duration: 0.2s;
+}
+
+.reveal {
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+
+  &.absent {
+    animation-name: revealAbsentCell;
   }
 
-  &-reveal-animation {
+  &.correct {
+    animation-name: revealCorrectCell;
+  }
+
+  &.present {
+    animation-name: revealPresentCell;
+  }
+
+  .letter {
     animation-duration: 0.3s;
     animation-timing-function: linear;
     animation-fill-mode: forwards;
-
-    &.absent {
-      animation-name: revealAbsentCell;
-    }
-
-    &.correct {
-      animation-name: revealCorrectCell;
-    }
-
-    &.present {
-      animation-name: revealPresentCell;
-    }
-
-    .letter {
-      animation-duration: 0.3s;
-      animation-timing-function: linear;
-      animation-fill-mode: forwards;
-      animation-name: rotateLetter;
-    }
+    animation-name: rotateLetter;
   }
 }
 
