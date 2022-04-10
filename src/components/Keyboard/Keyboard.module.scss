@@ -1,2 +1,47 @@
-.test {
+@use '../../styles/colors';
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.row {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.key {
+  width: 40px;
+  background-color: colors.$key-background-color;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-family: 'Lexend Deca';
+  font-family: 'Poppins';
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  margin: 0 0.2rem;
+}
+
+.absent {
+  background-color: colors.$color-absent;
+}
+
+.present {
+  background-color: colors.$color-present;
+}
+
+.correct {
+  background-color: colors.$color-correct;
+}
+
+.white {
+  background-color: #fff;
+  color: colors.$key-background-color;
 }
