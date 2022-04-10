@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import Grid from './components/Grid';
 import Keyboard from './components/Keyboard';
 import useLocalStorage from './hooks/useLocalStorage';
-import { solution, isWordValid } from './lib/words';
+import { solution, isWordValid, isWiningWord } from './lib/words';
+import { MAX_CHALLENGES, MAX_WORD_LENGTH } from './constants/settings';
 import styles from './App.module.scss';
 
 function App() {
@@ -12,6 +13,8 @@ function App() {
     return boardState.guesses ?? [];
   });
   const [isJiggling, setIsJiggling] = useState(false);
+  const [isGameWon, setIsGameWon] = useState(false);
+  const [isGameLost, setIsGameLost] = useState(false);
 
   // Show welcome modal
   useEffect(() => {
@@ -29,18 +32,28 @@ function App() {
     // eslint-disable-next-line
   }, [guesses]);
 
+  useEffect(() => {
+    if (isGameWon) return console.log('win');
+    if (isGameLost) return console.log('lost');
+  }, [isGameWon, isGameLost]);
+
   const handleKeyDown = letter =>
-    currentGuess.length < 5 && setCurrentGuess(currentGuess + letter);
+    currentGuess.length < MAX_WORD_LENGTH &&
+    setCurrentGuess(currentGuess + letter);
 
   const handleDelete = () =>
     setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
 
   const handleEnter = () => {
-    if (currentGuess.length < 5) return setIsJiggling(true);
+    if (isGameWon || isGameLost) return;
+    if (currentGuess.length < MAX_WORD_LENGTH) return setIsJiggling(true);
     if (!isWordValid(currentGuess)) return setIsJiggling(true);
 
     setGuesses([...guesses, currentGuess]);
     setCurrentGuess('');
+
+    if (isWiningWord(currentGuess)) setIsGameWon(true);
+    else if (guesses.length === MAX_CHALLENGES - 1) setIsGameLost(true);
   };
 
   return (
