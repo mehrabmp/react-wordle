@@ -10,7 +10,7 @@
 
 body {
   font-size: 62.5%;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Baloo 2', sans-serif;
   background: colors.$background-color;
   color: #fff;
   min-height: 100vh;
@@ -20,7 +20,11 @@ body {
 }
 
 .container {
+  height: 100vh;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Header from './components/Header';
 import Grid from './components/Grid';
 import Keyboard from './components/Keyboard';
 import useLocalStorage from './hooks/useLocalStorage';
@@ -15,6 +16,9 @@ function App() {
   const [isJiggling, setIsJiggling] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
   const [isGameLost, setIsGameLost] = useState(false);
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+  const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
   // Show welcome modal
   useEffect(() => {
@@ -58,6 +62,11 @@ function App() {
 
   return (
     <div className={styles.container}>
+      <Header
+        setIsInfoModalOpen={setIsInfoModalOpen}
+        setIsStatsModalOpen={setIsStatsModalOpen}
+        setIsSettingsModalOpen={setIsSettingsModalOpen}
+      />
       <Grid
         currentGuess={currentGuess}
         guesses={guesses}
