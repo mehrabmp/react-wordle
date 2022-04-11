@@ -55,6 +55,21 @@ export const getGuessStatuses = guess => {
   return statuses;
 };
 
+export const getStatuses = guesses => {
+  const charObj = {};
+  const splitSolution = solution.toUpperCase().split('');
+
+  guesses.forEach(word => {
+    word.split('').forEach((letter, i) => {
+      if (!splitSolution.includes(letter)) return (charObj[letter] = 'absent');
+      if (letter === splitSolution[i]) return (charObj[letter] = 'correct');
+      if (charObj[letter] !== 'correct') return (charObj[letter] = 'present');
+    });
+  });
+
+  return charObj;
+};
+
 export const getWordOfDay = () => {
   return { solution: 'chess' };
 };

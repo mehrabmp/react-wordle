@@ -77,6 +77,7 @@ function App() {
         onEnter={handleEnter}
         onDelete={handleDelete}
         onKeyDown={handleKeyDown}
+        guesses={guesses}
       />
     </div>
   );

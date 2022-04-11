@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
 import styles from './Keyboard.module.scss';
 import classNames from 'classnames';
+import { getStatuses } from '../../lib/words';
 
-const Keyboard = ({ onEnter, onDelete, onKeyDown }) => {
+const Keyboard = ({ onEnter, onDelete, onKeyDown, guesses }) => {
+  const charStatuses = getStatuses(guesses);
+
   useEffect(() => {
     const listener = e => {
       const key = e.key.toUpperCase();
@@ -28,12 +31,22 @@ const Keyboard = ({ onEnter, onDelete, onKeyDown }) => {
     <div className={styles.keyboard}>
       <div className={styles.row}>
         {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'].map(char => (
-          <Key key={char} value={char} onClick={handleClick} />
+          <Key
+            key={char}
+            value={char}
+            status={charStatuses[char]}
+            onClick={handleClick}
+          />
         ))}
       </div>
       <div className={styles.row}>
         {['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'].map(char => (
-          <Key key={char} value={char} onClick={handleClick} />
+          <Key
+            key={char}
+            value={char}
+            status={charStatuses[char]}
+            onClick={handleClick}
+          />
         ))}
       </div>
       <div className={styles.row}>
@@ -45,7 +58,12 @@ const Keyboard = ({ onEnter, onDelete, onKeyDown }) => {
           status="white"
         />
         {['Z', 'X', 'C', 'V', 'B', 'N', 'M'].map(char => (
-          <Key key={char} value={char} onClick={handleClick} />
+          <Key
+            key={char}
+            value={char}
+            status={charStatuses[char]}
+            onClick={handleClick}
+          />
         ))}
         <Key
           value="ENTER"
