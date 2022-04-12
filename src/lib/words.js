@@ -8,10 +8,6 @@ export const isWordValid = word => {
   );
 };
 
-export const isWiningWord = word => {
-  return solution === word.toLowerCase();
-};
-
 export const getGuessStatuses = guess => {
   const splitGuess = guess.toLowerCase().split('');
   const splitSolution = solution.split('');

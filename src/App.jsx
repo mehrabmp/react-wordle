@@ -5,8 +5,12 @@ import Keyboard from './components/Keyboard';
 import Alert from './components/Alert';
 import useLocalStorage from './hooks/useLocalStorage';
 import useAlert from './hooks/useAlert';
-import { solution, isWordValid, isWiningWord } from './lib/words';
-import { MAX_CHALLENGES, MAX_WORD_LENGTH } from './constants/settings';
+import { solution, isWordValid } from './lib/words';
+import {
+  ALERT_DELAY,
+  MAX_CHALLENGES,
+  MAX_WORD_LENGTH,
+} from './constants/settings';
 import styles from './App.module.scss';
 
 function App() {
@@ -40,12 +44,22 @@ function App() {
   }, [guesses]);
 
   useEffect(() => {
-    if (isGameWon) return console.log('win');
-    if (isGameLost) return console.log('lost');
-  }, [isGameWon, isGameLost]);
+    if (guesses.includes(solution.toUpperCase())) {
+      setIsGameWon(true);
+      setTimeout(() => showAlert('Well done', 'success'), ALERT_DELAY);
+    } else if (guesses.length === MAX_CHALLENGES) {
+      setIsGameLost(true);
+      setTimeout(
+        () => showAlert(`The word was ${solution}`, 'error', true),
+        ALERT_DELAY
+      );
+    }
+    // eslint-disable-next-line
+  }, [guesses]);
 
   const handleKeyDown = letter =>
     currentGuess.length < MAX_WORD_LENGTH &&
+    !isGameWon &&
     setCurrentGuess(currentGuess + letter);
 
   const handleDelete = () =>
@@ -66,14 +80,6 @@ function App() {
 
     setGuesses([...guesses, currentGuess]);
     setCurrentGuess('');
-
-    if (isWiningWord(currentGuess)) {
-      setIsGameWon(true);
-      showAlert('Well done', 'success');
-    } else if (guesses.length === MAX_CHALLENGES - 1) {
-      setIsGameLost(true);
-      showAlert(`The word was ${solution}`, 'error', true);
-    }
   };
 
   return (
