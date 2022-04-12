@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Grid from './components/Grid';
 import Keyboard from './components/Keyboard';
+import Alert from './components/Alert';
 import useLocalStorage from './hooks/useLocalStorage';
+import useAlert from './hooks/useAlert';
 import { solution, isWordValid, isWiningWord } from './lib/words';
 import { MAX_CHALLENGES, MAX_WORD_LENGTH } from './constants/settings';
 import styles from './App.module.scss';
@@ -19,6 +21,7 @@ function App() {
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const { showAlert } = useAlert();
 
   // Show welcome modal
   useEffect(() => {
@@ -50,14 +53,27 @@ function App() {
 
   const handleEnter = () => {
     if (isGameWon || isGameLost) return;
-    if (currentGuess.length < MAX_WORD_LENGTH) return setIsJiggling(true);
-    if (!isWordValid(currentGuess)) return setIsJiggling(true);
+
+    if (currentGuess.length < MAX_WORD_LENGTH) {
+      setIsJiggling(true);
+      return showAlert('Not enough letters', 'error');
+    }
+
+    if (!isWordValid(currentGuess)) {
+      setIsJiggling(true);
+      return showAlert('Not in word list', 'error');
+    }
 
     setGuesses([...guesses, currentGuess]);
     setCurrentGuess('');
 
-    if (isWiningWord(currentGuess)) setIsGameWon(true);
-    else if (guesses.length === MAX_CHALLENGES - 1) setIsGameLost(true);
+    if (isWiningWord(currentGuess)) {
+      setIsGameWon(true);
+      showAlert('Well done', 'success');
+    } else if (guesses.length === MAX_CHALLENGES - 1) {
+      setIsGameLost(true);
+      showAlert(`The word was ${solution}`, 'error', true);
+    }
   };
 
   return (
@@ -67,6 +83,7 @@ function App() {
         setIsStatsModalOpen={setIsStatsModalOpen}
         setIsSettingsModalOpen={setIsSettingsModalOpen}
       />
+      <Alert />
       <Grid
         currentGuess={currentGuess}
         guesses={guesses}

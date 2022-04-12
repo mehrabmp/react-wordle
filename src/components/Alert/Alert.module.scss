@@ -1,0 +1,28 @@
+@use '../../styles/colors';
+
+.alertContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+.alert {
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  font-family: 'Poppins';
+  font-weight: 500;
+}
+
+.success {
+  background-color: colors.$alert-success;
+}
+
+.error {
+  background-color: colors.$alert-error;
+}
