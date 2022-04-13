@@ -1,7 +1,7 @@
 import useAlert from '../../hooks/useAlert';
 import { CSSTransition } from 'react-transition-group';
 import styles from './Alert.module.scss';
-import './styles.css';
+import '../../styles/_transitionStyles.scss';
 import classNames from 'classnames';
 
 const Alert = () => {
@@ -18,7 +18,7 @@ const Alert = () => {
       <CSSTransition
         in={isVisible}
         timeout={300}
-        classNames="alert"
+        classNames={'fadeIn'}
         unmountOnExit
       >
         <span className={classes}>{message}</span>
