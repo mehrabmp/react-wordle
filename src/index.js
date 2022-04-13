@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AlertProvider } from './context/AlertContext';
+import { AlertProvider } from 'context/AlertContext';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

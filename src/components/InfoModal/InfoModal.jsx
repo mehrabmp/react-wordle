@@ -1,10 +1,9 @@
 import { useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import Cell from '../Cell';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
+import Cell from 'components/Cell';
+import useOnClickOutside from 'hooks/useOnClickOutside';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import styles from './InfoModal.module.scss';
-import '../../styles/_transitionStyles.scss';
 
 const InfoModal = ({ isOpen, onClose }) => {
   const ref = useRef();

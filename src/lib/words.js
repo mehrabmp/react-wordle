@@ -1,5 +1,5 @@
-import { VALID_GUESSES } from '../constants/validGuesses';
-import { WORDS } from '../constants/wordList';
+import { VALID_GUESSES } from 'constants/validGuesses';
+import { WORDS } from 'constants/wordList';
 
 export const isWordValid = word => {
   return (

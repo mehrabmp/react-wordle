@@ -1,9 +1,9 @@
-import classNames from 'classnames';
-import styles from './Grid.module.scss';
-import Cell from '../Cell';
-import { MAX_CHALLENGES, MAX_WORD_LENGTH } from '../../constants/settings';
-import { getGuessStatuses } from '../../lib/words';
 import { useEffect } from 'react';
+import classNames from 'classnames';
+import Cell from 'components/Cell';
+import { getGuessStatuses } from 'lib/words';
+import { MAX_CHALLENGES, MAX_WORD_LENGTH } from 'constants/settings';
+import styles from './Grid.module.scss';
 
 const Grid = ({ currentGuess, guesses, isJiggling, setIsJiggling }) => {
   const empties =

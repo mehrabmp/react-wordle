@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react';
-import Header from './components/Header';
-import Grid from './components/Grid';
-import Keyboard from './components/Keyboard';
-import Alert from './components/Alert';
-import InfoModal from './components/InfoModal/InfoModal';
-import useLocalStorage from './hooks/useLocalStorage';
-import useAlert from './hooks/useAlert';
-import { solution, isWordValid } from './lib/words';
+import Header from 'components/Header';
+import Grid from 'components/Grid';
+import Keyboard from 'components/Keyboard';
+import Alert from 'components/Alert';
+import InfoModal from 'components/InfoModal';
+import useLocalStorage from 'hooks/useLocalStorage';
+import useAlert from 'hooks/useAlert';
+import { solution, isWordValid } from 'lib/words';
 import {
   ALERT_DELAY,
   MAX_CHALLENGES,
   MAX_WORD_LENGTH,
-} from './constants/settings';
+} from 'constants/settings';
 import styles from './App.module.scss';
+import 'styles/_transitionStyles.scss';
 
 function App() {
   const [boardState, setBoardState] = useLocalStorage('boardState', {});
