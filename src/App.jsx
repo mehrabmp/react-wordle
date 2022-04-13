@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Grid from './components/Grid';
 import Keyboard from './components/Keyboard';
 import Alert from './components/Alert';
+import InfoModal from './components/InfoModal/InfoModal';
 import useLocalStorage from './hooks/useLocalStorage';
 import useAlert from './hooks/useAlert';
 import { solution, isWordValid } from './lib/words';
@@ -29,12 +30,11 @@ function App() {
 
   // Show welcome modal
   useEffect(() => {
-    if (!boardState.solution) console.log('welcome');
-
+    if (!boardState.solution) setTimeout(() => setIsInfoModalOpen(true), 1000);
     // eslint-disable-next-line
   }, []);
 
-  // Save gameState to localStorage
+  // Save gameStats to localStorage
   useEffect(() => {
     setBoardState({
       guesses,
@@ -43,6 +43,7 @@ function App() {
     // eslint-disable-next-line
   }, [guesses]);
 
+  // Check game winning or losing
   useEffect(() => {
     if (guesses.includes(solution.toUpperCase())) {
       setIsGameWon(true);
@@ -101,6 +102,10 @@ function App() {
         onDelete={handleDelete}
         onKeyDown={handleKeyDown}
         guesses={guesses}
+      />
+      <InfoModal
+        isOpen={isInfoModalOpen}
+        onClose={() => setIsInfoModalOpen(false)}
       />
     </div>
   );
