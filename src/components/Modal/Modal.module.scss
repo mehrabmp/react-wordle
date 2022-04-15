@@ -1,0 +1,44 @@
+@use 'styles/colors';
+
+.modalContainer {
+  background: rgba($color: #777, $alpha: 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+}
+
+.modal {
+  background: colors.$background-color;
+  border-radius: 10px;
+  padding: 1rem;
+  color: #ededed;
+  text-align: center;
+  position: relative;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.close {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #fff;
+}
