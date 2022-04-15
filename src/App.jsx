@@ -4,6 +4,7 @@ import Grid from 'components/Grid';
 import Keyboard from 'components/Keyboard';
 import Alert from 'components/Alert';
 import InfoModal from 'components/InfoModal';
+import SettingModal from 'components/SettingModal';
 import useLocalStorage from 'hooks/useLocalStorage';
 import useAlert from 'hooks/useAlert';
 import { solution, isWordValid } from 'lib/words';
@@ -27,6 +28,9 @@ function App() {
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [isHardMode, setIsHardMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isHighContrastMode, setIsHighContrastMode] = useState(false);
   const { showAlert } = useAlert();
 
   // Show welcome modal
@@ -107,6 +111,16 @@ function App() {
       <InfoModal
         isOpen={isInfoModalOpen}
         onClose={() => setIsInfoModalOpen(false)}
+      />
+      <SettingModal
+        isOpen={isSettingsModalOpen}
+        onClose={() => setIsSettingsModalOpen(false)}
+        isHardMode={isHardMode}
+        isDarkMode={isDarkMode}
+        isHighContrastMode={isHighContrastMode}
+        setIsHardMode={() => setIsHardMode(!isHardMode)}
+        setIsDarkMode={() => setIsDarkMode(!isDarkMode)}
+        setIsHighContrastMode={() => setIsHighContrastMode(!isHighContrastMode)}
       />
     </div>
   );
