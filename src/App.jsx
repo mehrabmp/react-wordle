@@ -7,7 +7,7 @@ import InfoModal from 'components/InfoModal';
 import SettingModal from 'components/SettingModal';
 import useLocalStorage from 'hooks/useLocalStorage';
 import useAlert from 'hooks/useAlert';
-import { solution, isWordValid } from 'lib/words';
+import { solution, isWordValid, findFirstUnusedReveal } from 'lib/words';
 import {
   ALERT_DELAY,
   MAX_CHALLENGES,
@@ -23,6 +23,7 @@ function App() {
     'high-contrast',
     false
   );
+  const [hardMode, setHardMode] = useLocalStorage('hard-mode', false);
   const [currentGuess, setCurrentGuess] = useState('');
   const [guesses, setGuesses] = useState(() => {
     return boardState.guesses ?? [];
@@ -33,7 +34,7 @@ function App() {
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
-  const [isHardMode, setIsHardMode] = useState(false);
+  const [isHardMode, setIsHardMode] = useState(hardMode);
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
   const [isHighContrastMode, setIsHighContrastMode] = useState(highContrast);
   const { showAlert } = useAlert();
@@ -87,6 +88,11 @@ function App() {
     setHighContrast(!isHighContrastMode);
   };
 
+  const handleHardMode = () => {
+    setIsHardMode(!isHardMode);
+    setHardMode(!isHardMode);
+  };
+
   const handleKeyDown = letter =>
     currentGuess.length < MAX_WORD_LENGTH &&
     !isGameWon &&
@@ -106,6 +112,14 @@ function App() {
     if (!isWordValid(currentGuess)) {
       setIsJiggling(true);
       return showAlert('Not in word list', 'error');
+    }
+
+    if (isHardMode) {
+      const firstMissingReveal = findFirstUnusedReveal(currentGuess, guesses);
+      if (firstMissingReveal) {
+        setIsJiggling(true);
+        return showAlert(firstMissingReveal, 'error');
+      }
     }
 
     setGuesses([...guesses, currentGuess]);
@@ -142,7 +156,7 @@ function App() {
         isHardMode={isHardMode}
         isDarkMode={isDarkMode}
         isHighContrastMode={isHighContrastMode}
-        setIsHardMode={() => setIsHardMode(!isHardMode)}
+        setIsHardMode={handleHardMode}
         setIsDarkMode={handleDarkMode}
         setIsHighContrastMode={handleHighContrastMode}
       />

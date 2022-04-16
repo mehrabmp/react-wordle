@@ -66,6 +66,44 @@ export const getStatuses = guesses => {
   return charObj;
 };
 
+// build a set of previously revealed letters - present and correct
+// guess must use correct letters in that space and any other revealed letters
+// also check if all revealed instances of a letter are used (i.e. two C's)
+export const findFirstUnusedReveal = (word, guesses) => {
+  if (guesses.length === 0) {
+    return false;
+  }
+
+  const lettersLeftArray = [];
+  const guess = guesses[guesses.length - 1];
+  const statuses = getGuessStatuses(guess);
+  const splitWord = word.toUpperCase().split('');
+  const splitGuess = guess.toUpperCase().split('');
+
+  for (let i = 0; i < splitGuess.length; i++) {
+    if (statuses[i] === 'correct' || statuses[i] === 'present')
+      lettersLeftArray.push(splitGuess[i]);
+
+    if (statuses[i] === 'correct' && splitWord[i] !== splitGuess[i])
+      return `Must use ${splitGuess[i]} in position ${i + 1}`;
+  }
+
+  // check for the first unused letter, taking duplicate letters
+  // into account - see issue #198
+  let n;
+  for (const letter of splitWord) {
+    n = lettersLeftArray.indexOf(letter);
+    if (n !== -1) {
+      lettersLeftArray.splice(n, 1);
+    }
+  }
+
+  if (lettersLeftArray.length > 0)
+    return `Guess must contain ${lettersLeftArray[0]}`;
+
+  return false;
+};
+
 export const getWordOfDay = () => {
   return { solution: 'chess' };
 };
