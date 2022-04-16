@@ -18,6 +18,7 @@ import 'styles/_transitionStyles.scss';
 
 function App() {
   const [boardState, setBoardState] = useLocalStorage('boardState', {});
+  const [theme, setTheme] = useLocalStorage('theme', 'dark');
   const [currentGuess, setCurrentGuess] = useState('');
   const [guesses, setGuesses] = useState(() => {
     return boardState.guesses ?? [];
@@ -29,7 +30,7 @@ function App() {
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isHardMode, setIsHardMode] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
   const [isHighContrastMode, setIsHighContrastMode] = useState(false);
   const { showAlert } = useAlert();
 
@@ -63,6 +64,11 @@ function App() {
     // eslint-disable-next-line
   }, [guesses]);
 
+  useEffect(() => {
+    if (isDarkMode) document.body.setAttribute('data-theme', 'dark');
+    else document.body.removeAttribute('data-theme');
+  }, [isDarkMode]);
+
   const handleKeyDown = letter =>
     currentGuess.length < MAX_WORD_LENGTH &&
     !isGameWon &&
@@ -86,6 +92,11 @@ function App() {
 
     setGuesses([...guesses, currentGuess]);
     setCurrentGuess('');
+  };
+
+  const handleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    setTheme(isDarkMode ? 'light' : 'dark');
   };
 
   return (
@@ -119,7 +130,7 @@ function App() {
         isDarkMode={isDarkMode}
         isHighContrastMode={isHighContrastMode}
         setIsHardMode={() => setIsHardMode(!isHardMode)}
-        setIsDarkMode={() => setIsDarkMode(!isDarkMode)}
+        setIsDarkMode={handleDarkMode}
         setIsHighContrastMode={() => setIsHighContrastMode(!isHighContrastMode)}
       />
     </div>

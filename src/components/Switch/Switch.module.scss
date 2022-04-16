@@ -1,5 +1,3 @@
-@use 'styles/colors';
-
 .switch {
   height: 0;
   width: 0;
@@ -37,5 +35,5 @@
 }
 
 .isOn {
-  background: colors.$toggle-color;
+  background: var(--color-toggle);
 }

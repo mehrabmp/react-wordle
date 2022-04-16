@@ -1,5 +1,3 @@
-@use 'styles/colors';
-
 .keyboard {
   display: flex;
   flex-direction: column;
@@ -14,9 +12,9 @@
 
 .key {
   width: 40px;
-  background-color: colors.$key-background-color;
+  background-color: var(--color-key);
   border-radius: 5px;
-  color: #fff;
+  color: var(--color-key-text);
   font-size: 1.2rem;
   font-weight: 500;
   font-family: 'Lexend Deca';
@@ -30,18 +28,21 @@
 }
 
 .absent {
-  background-color: colors.$color-absent;
+  background-color: var(--color-absent);
+  color: #fff;
 }
 
 .present {
-  background-color: colors.$color-present;
+  background-color: var(--color-present);
+  color: #fff;
 }
 
 .correct {
-  background-color: colors.$color-correct;
+  background-color: var(--color-correct);
+  color: #fff;
 }
 
-.white {
-  background-color: #fff;
-  color: colors.$key-background-color;
+.action {
+  background-color: var(--color-key-secondary);
+  color: var(--color-background);
 }

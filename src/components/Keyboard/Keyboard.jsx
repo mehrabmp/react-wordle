@@ -55,7 +55,7 @@ const Keyboard = ({ onEnter, onDelete, onKeyDown, guesses }) => {
           onClick={handleClick}
           width="auto"
           fontSize="0.9rem"
-          status="white"
+          status="action"
         />
         {['Z', 'X', 'C', 'V', 'B', 'N', 'M'].map(char => (
           <Key
@@ -70,7 +70,7 @@ const Keyboard = ({ onEnter, onDelete, onKeyDown, guesses }) => {
           onClick={handleClick}
           width="auto"
           fontSize="0.9rem"
-          status="white"
+          status="action"
         />
       </div>
     </div>
@@ -89,7 +89,7 @@ const Key = ({
     [styles.absent]: status === 'absent',
     [styles.present]: status === 'present',
     [styles.correct]: status === 'correct',
-    [styles.white]: status === 'white',
+    [styles.action]: status === 'action',
   });
 
   const style = {

@@ -1,17 +1,45 @@
-@use 'styles/colors';
-
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: background 0.3s;
+}
+
+:root {
+  --color-absent: #405069;
+  --color-present: #e0c02b;
+  --color-correct: #31ad23;
+  --color-alert-success: #3fbf62;
+  --color-alert-error: #ea4e2c;
+  --color-toggle: #3fbf62;
+
+  --color-background: #fff;
+  --color-cell: #afadb0;
+  --color-key: #e3e3e3;
+  --color-key-text: #333;
+  --color-key-secondary: #4f4f4f;
+  --color-text-primary: #000;
+  --color-text-secondary: #333;
+  --color-icon: #333;
+
+  body[data-theme='dark'] {
+    --color-background: #191919;
+    --color-cell: #444444;
+    --color-key: #4f4f4f;
+    --color-key-text: #fff;
+    --color-key-secondary: #fff;
+    --color-text-primary: #fff;
+    --color-text-secondary: #adadad;
+    --color-icon: #fff;
+  }
 }
 
 body {
   font-size: 62.5%;
   font-family: 'Baloo 2', sans-serif;
-  background: colors.$background-color;
+  background: var(--color-background);
   color: #fff;
   min-height: 100vh;
   scroll-behavior: smooth;

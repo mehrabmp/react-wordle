@@ -1,5 +1,3 @@
-@use 'styles/colors';
-
 .alertContainer {
   display: flex;
   justify-content: center;
@@ -20,9 +18,9 @@
 }
 
 .success {
-  background-color: colors.$alert-success;
+  background-color: var(--color-alert-success);
 }
 
 .error {
-  background-color: colors.$alert-error;
+  background-color: var(--color-alert-error);
 }

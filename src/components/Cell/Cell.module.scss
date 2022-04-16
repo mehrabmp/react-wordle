@@ -1,9 +1,7 @@
-@use 'styles/colors';
-
 .cell {
   width: 60px;
   height: 60px;
-  background-color: colors.$cell-background-color;
+  background-color: var(--color-cell);
   border-radius: 10px;
   font-size: 2.6rem;
   font-weight: 700;
@@ -61,51 +59,51 @@
 @keyframes revealAbsentCell {
   0% {
     transform: rotateX(0deg);
-    background-color: colors.$cell-background-color;
+    background-color: var(--color-cell);
   }
   50% {
-    background-color: colors.$cell-background-color;
+    background-color: var(--color-cell);
   }
   50.5% {
-    background-color: colors.$color-absent;
+    background-color: var(--color-absent);
   }
   100% {
     transform: rotateX(180deg);
-    background-color: colors.$color-absent;
+    background-color: var(--color-absent);
   }
 }
 
 @keyframes revealPresentCell {
   0% {
     transform: rotateX(0deg);
-    background-color: colors.$cell-background-color;
+    background-color: var(--color-cell);
   }
   50% {
-    background-color: colors.$cell-background-color;
+    background-color: var(--color-cell);
   }
   50.5% {
-    background-color: colors.$color-present;
+    background-color: var(--color-present);
   }
   100% {
     transform: rotateX(180deg);
-    background-color: colors.$color-present;
+    background-color: var(--color-present);
   }
 }
 
 @keyframes revealCorrectCell {
   0% {
     transform: rotateX(0deg);
-    background-color: colors.$cell-background-color;
+    background-color: var(--color-cell);
   }
   50% {
-    background-color: colors.$cell-background-color;
+    background-color: var(--color-cell);
   }
   50.5% {
-    background-color: colors.$color-correct;
+    background-color: var(--color-correct);
   }
   100% {
     transform: rotateX(180deg);
-    background-color: colors.$color-correct;
+    background-color: var(--color-correct);
   }
 }
 
