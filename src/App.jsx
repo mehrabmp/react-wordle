@@ -19,6 +19,10 @@ import 'styles/_transitionStyles.scss';
 function App() {
   const [boardState, setBoardState] = useLocalStorage('boardState', {});
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
+  const [highContrast, setHighContrast] = useLocalStorage(
+    'high-contrast',
+    false
+  );
   const [currentGuess, setCurrentGuess] = useState('');
   const [guesses, setGuesses] = useState(() => {
     return boardState.guesses ?? [];
@@ -31,7 +35,7 @@ function App() {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isHardMode, setIsHardMode] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
-  const [isHighContrastMode, setIsHighContrastMode] = useState(false);
+  const [isHighContrastMode, setIsHighContrastMode] = useState(highContrast);
   const { showAlert } = useAlert();
 
   // Show welcome modal
@@ -67,7 +71,21 @@ function App() {
   useEffect(() => {
     if (isDarkMode) document.body.setAttribute('data-theme', 'dark');
     else document.body.removeAttribute('data-theme');
-  }, [isDarkMode]);
+
+    if (isHighContrastMode)
+      document.body.setAttribute('data-mode', 'high-contrast');
+    else document.body.removeAttribute('data-mode');
+  }, [isDarkMode, isHighContrastMode]);
+
+  const handleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    setTheme(isDarkMode ? 'light' : 'dark');
+  };
+
+  const handleHighContrastMode = () => {
+    setIsHighContrastMode(!isHighContrastMode);
+    setHighContrast(!isHighContrastMode);
+  };
 
   const handleKeyDown = letter =>
     currentGuess.length < MAX_WORD_LENGTH &&
@@ -92,11 +110,6 @@ function App() {
 
     setGuesses([...guesses, currentGuess]);
     setCurrentGuess('');
-  };
-
-  const handleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    setTheme(isDarkMode ? 'light' : 'dark');
   };
 
   return (
@@ -131,7 +144,7 @@ function App() {
         isHighContrastMode={isHighContrastMode}
         setIsHardMode={() => setIsHardMode(!isHardMode)}
         setIsDarkMode={handleDarkMode}
-        setIsHighContrastMode={() => setIsHighContrastMode(!isHighContrastMode)}
+        setIsHighContrastMode={handleHighContrastMode}
       />
     </div>
   );

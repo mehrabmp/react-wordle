@@ -24,7 +24,7 @@
   --color-text-secondary: #333;
   --color-icon: #333;
 
-  body[data-theme='dark'] {
+  [data-theme='dark'] {
     --color-background: #191919;
     --color-cell: #444444;
     --color-key: #4f4f4f;
@@ -33,6 +33,11 @@
     --color-text-primary: #fff;
     --color-text-secondary: #adadad;
     --color-icon: #fff;
+  }
+
+  [data-mode='high-contrast'] {
+    --color-present: #06b6d4;
+    --color-correct: #f97316;
   }
 }
 
