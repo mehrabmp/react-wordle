@@ -5,9 +5,15 @@ import Keyboard from 'components/Keyboard';
 import Alert from 'components/Alert';
 import InfoModal from 'components/InfoModal';
 import SettingModal from 'components/SettingModal';
+import StatsModal from 'components/StatsModal';
 import useLocalStorage from 'hooks/useLocalStorage';
 import useAlert from 'hooks/useAlert';
-import { solution, isWordValid, findFirstUnusedReveal } from 'lib/words';
+import {
+  solution,
+  isWordValid,
+  findFirstUnusedReveal,
+  addStatsForCompletedGame,
+} from 'lib/words';
 import {
   ALERT_DELAY,
   MAX_CHALLENGES,
@@ -24,6 +30,14 @@ function App() {
     false
   );
   const [hardMode, setHardMode] = useLocalStorage('hard-mode', false);
+  const [stats, setStats] = useLocalStorage('gameStats', {
+    winDistribution: Array.from(new Array(MAX_CHALLENGES), () => 0),
+    gamesFailed: 0,
+    currentStreak: 0,
+    bestStreak: 0,
+    totalGames: 0,
+    successRate: 0,
+  });
   const [currentGuess, setCurrentGuess] = useState('');
   const [guesses, setGuesses] = useState(() => {
     return boardState.guesses ?? [];
@@ -45,7 +59,7 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
-  // Save gameStats to localStorage
+  // Save boardState to localStorage
   useEffect(() => {
     setBoardState({
       guesses,
@@ -59,12 +73,14 @@ function App() {
     if (guesses.includes(solution.toUpperCase())) {
       setIsGameWon(true);
       setTimeout(() => showAlert('Well done', 'success'), ALERT_DELAY);
+      setTimeout(() => setIsStatsModalOpen(true), ALERT_DELAY + 1000);
     } else if (guesses.length === MAX_CHALLENGES) {
       setIsGameLost(true);
       setTimeout(
         () => showAlert(`The word was ${solution}`, 'error', true),
         ALERT_DELAY
       );
+      setTimeout(() => setIsStatsModalOpen(true), ALERT_DELAY + 1000);
     }
     // eslint-disable-next-line
   }, [guesses]);
@@ -122,6 +138,12 @@ function App() {
       }
     }
 
+    if (currentGuess === solution.toUpperCase()) {
+      setStats(addStatsForCompletedGame(stats, guesses.length));
+    } else if (guesses.length + 1 === MAX_CHALLENGES) {
+      setStats(addStatsForCompletedGame(stats, guesses.length + 1));
+    }
+
     setGuesses([...guesses, currentGuess]);
     setCurrentGuess('');
   };
@@ -159,6 +181,12 @@ function App() {
         setIsHardMode={handleHardMode}
         setIsDarkMode={handleDarkMode}
         setIsHighContrastMode={handleHighContrastMode}
+      />
+      <StatsModal
+        isOpen={isStatsModalOpen}
+        onClose={() => setIsStatsModalOpen(false)}
+        gameStats={stats}
+        numberOfGuessesMade={guesses.length}
       />
     </div>
   );
