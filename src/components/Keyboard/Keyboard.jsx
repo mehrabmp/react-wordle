@@ -50,13 +50,7 @@ const Keyboard = ({ onEnter, onDelete, onKeyDown, guesses }) => {
         ))}
       </div>
       <div className={styles.row}>
-        <Key
-          value="DELETE"
-          onClick={handleClick}
-          width="auto"
-          fontSize="0.9rem"
-          status="action"
-        />
+        <Key value="DELETE" onClick={handleClick} status="action" />
         {['Z', 'X', 'C', 'V', 'B', 'N', 'M'].map(char => (
           <Key
             key={char}
@@ -65,25 +59,13 @@ const Keyboard = ({ onEnter, onDelete, onKeyDown, guesses }) => {
             onClick={handleClick}
           />
         ))}
-        <Key
-          value="ENTER"
-          onClick={handleClick}
-          width="auto"
-          fontSize="0.9rem"
-          status="action"
-        />
+        <Key value="ENTER" onClick={handleClick} status="action" />
       </div>
     </div>
   );
 };
 
-const Key = ({
-  value,
-  status,
-  onClick,
-  width = '40px',
-  fontSize = '1.2rem',
-}) => {
+const Key = ({ value, status, onClick }) => {
   const classes = classNames({
     [styles.key]: true,
     [styles.absent]: status === 'absent',
@@ -92,13 +74,8 @@ const Key = ({
     [styles.action]: status === 'action',
   });
 
-  const style = {
-    width,
-    fontSize,
-  };
-
   return (
-    <button className={classes} style={style} onClick={() => onClick(value)}>
+    <button className={classes} onClick={() => onClick(value)}>
       {value}
     </button>
   );

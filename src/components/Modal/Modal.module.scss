@@ -36,3 +36,13 @@
   margin-bottom: 1rem;
   color: var(--color-text-primary);
 }
+
+@media screen and (max-width: 480px) {
+  .modal {
+    max-width: 350px;
+  }
+
+  .title {
+    margin-bottom: 0.5rem;
+  }
+}

@@ -115,3 +115,11 @@
     transform: rotateX(180deg);
   }
 }
+
+@media screen and (max-width: 480px) {
+  .cell {
+    width: 55px;
+    height: 55px;
+    font-size: 2.4rem;
+  }
+}

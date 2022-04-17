@@ -45,4 +45,22 @@
 .action {
   background-color: var(--color-key-secondary);
   color: var(--color-background);
+  font-size: 0.9rem;
+  width: auto;
+}
+
+@media screen and (max-width: 480px) {
+  .keyboard {
+    margin: 0;
+  }
+
+  .key {
+    width: 30px;
+    font-size: 1rem;
+  }
+
+  .action {
+    width: auto;
+    font-size: 0.7rem;
+  }
 }

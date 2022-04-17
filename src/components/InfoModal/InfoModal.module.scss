@@ -11,3 +11,10 @@ h3 {
   grid-gap: 10px;
   margin-bottom: 0.25rem;
 }
+
+@media screen and (max-width: 480px) {
+  h3 {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+}

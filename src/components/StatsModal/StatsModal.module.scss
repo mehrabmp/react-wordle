@@ -42,6 +42,7 @@ h2 {
   .index {
     width: 20px;
     margin-right: 0.5rem;
+    color: var(--color-text-primary);
   }
 
   .row {
@@ -72,6 +73,7 @@ h2 {
 
     .time {
       font-size: 1.4rem;
+      color: var(--color-text-primary);
     }
   }
 
@@ -89,5 +91,28 @@ h2 {
     font-size: 1.4rem;
     font-weight: 500;
     padding: 0.5rem 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .result {
+    padding: 0;
+
+    .countDown .time {
+      font-size: 1rem;
+    }
+
+    .share {
+      margin-left: 0;
+    }
+
+    button {
+      font-size: 1.2rem;
+      width: 90%;
+    }
   }
 }

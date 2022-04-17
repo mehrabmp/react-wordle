@@ -16,3 +16,9 @@ button {
   outline: none;
   border: none;
 }
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+}

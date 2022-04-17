@@ -35,3 +35,9 @@
     transform: translate(0, 0);
   }
 }
+
+@media screen and (max-width: 480px) {
+  .grid {
+    margin: 0;
+  }
+}
