@@ -28,7 +28,10 @@ h2 {
   font-size: 1.4rem;
   font-weight: 500;
   color: var(--color-text-primary);
-  margin-bottom: 1rem;
+}
+
+.winDistribution {
+  padding: 1rem;
 }
 
 .progress {
@@ -55,5 +58,36 @@ h2 {
 
   .gray {
     background: #5d6061;
+  }
+}
+
+.result {
+  display: flex;
+  padding: 0 2rem;
+
+  .countDown {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .time {
+      font-size: 1.4rem;
+    }
+  }
+
+  .share {
+    flex: 1;
+    margin-left: 1rem;
+  }
+
+  button {
+    background: #a01ef7;
+    width: 100%;
+    display: block;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: 0.5rem 0;
   }
 }

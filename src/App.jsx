@@ -187,6 +187,11 @@ function App() {
         onClose={() => setIsStatsModalOpen(false)}
         gameStats={stats}
         numberOfGuessesMade={guesses.length}
+        isGameWon={isGameWon}
+        isGameLost={isGameLost}
+        isHardMode={isHardMode}
+        guesses={guesses}
+        showAlert={showAlert}
       />
     </div>
   );

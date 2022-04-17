@@ -137,8 +137,52 @@ const getSuccessRate = gameStats => {
   );
 };
 
-export const getWordOfDay = () => {
-  return { solution: 'chess' };
+export const shareStatus = (guesses, isGameLost, isHardMode) => {
+  const textToShare =
+    `Wordle Game
+#${solutionIndex} 
+${isGameLost ? 'X' : guesses.length}/${MAX_CHALLENGES} 
+${isHardMode ? 'Hard Mode' : ''}
+\n` + generateEmojiGrid(guesses);
+
+  navigator.clipboard.writeText(textToShare);
 };
 
-export const { solution } = getWordOfDay();
+export const generateEmojiGrid = guesses => {
+  return guesses
+    .map(guess => {
+      const status = getGuessStatuses(guess);
+      const splitGuess = guess.split('');
+
+      return splitGuess
+        .map((_, i) => {
+          switch (status[i]) {
+            case 'correct':
+              return '🟩';
+            case 'present':
+              return '🟨';
+            default:
+              return '⬜';
+          }
+        })
+        .join('');
+    })
+    .join('\n');
+};
+
+export const getWordOfDay = () => {
+  // January 1, 2022 Game Epoch
+  const epochMs = new Date(2022, 0).valueOf();
+  const now = Date.now();
+  const msInDay = 86400000;
+  const index = Math.floor((now - epochMs) / msInDay);
+  const nextday = (index + 1) * msInDay + epochMs;
+
+  return {
+    solution: WORDS[index % WORDS.length],
+    solutionIndex: index,
+    tomorrow: nextday,
+  };
+};
+
+export const { solution, solutionIndex, tomorrow } = getWordOfDay();

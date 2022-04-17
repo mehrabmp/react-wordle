@@ -1,8 +1,25 @@
 import classNames from 'classnames';
+import CountDown from 'react-countdown';
 import Modal from 'components/Modal';
 import styles from './StatsModal.module.scss';
+import { shareStatus, tomorrow } from 'lib/words';
 
-const StatsModal = ({ isOpen, onClose, gameStats, numberOfGuessesMade }) => {
+const StatsModal = ({
+  isOpen,
+  onClose,
+  gameStats,
+  numberOfGuessesMade,
+  isGameWon,
+  isGameLost,
+  isHardMode,
+  guesses,
+  showAlert,
+}) => {
+  const handleShare = () => {
+    shareStatus(guesses, isGameLost, isHardMode);
+    showAlert('Game copied to clipboard', 'success');
+  };
+
   return (
     <Modal title="Statistics" isOpen={isOpen} onClose={onClose}>
       <div className={styles.statsBar}>
@@ -12,15 +29,32 @@ const StatsModal = ({ isOpen, onClose, gameStats, numberOfGuessesMade }) => {
         <StatItem label="Best Streak" value={gameStats.bestStreak} />
       </div>
       <h2>Guess Distribution</h2>
-      {gameStats.winDistribution.map((value, i) => (
-        <Progress
-          key={i}
-          index={i}
-          currentDayStatRow={numberOfGuessesMade === i + 1}
-          size={90 * (value / Math.max(...gameStats.winDistribution))}
-          label={String(value)}
-        />
-      ))}
+      <div className={styles.winDistribution}>
+        {gameStats.winDistribution.map((value, i) => (
+          <Progress
+            key={i}
+            index={i}
+            currentDayStatRow={numberOfGuessesMade === i + 1}
+            size={90 * (value / Math.max(...gameStats.winDistribution))}
+            label={String(value)}
+          />
+        ))}
+      </div>
+      {(isGameWon || isGameLost) && (
+        <div className={styles.result}>
+          <div className={styles.countDown}>
+            <h2>Next word in</h2>
+            <CountDown
+              date={tomorrow}
+              daysInHours={true}
+              className={styles.time}
+            />
+          </div>
+          <div className={styles.share}>
+            <button onClick={handleShare}>Share</button>
+          </div>
+        </div>
+      )}
     </Modal>
   );
 };
