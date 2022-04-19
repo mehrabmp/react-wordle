@@ -23,7 +23,10 @@ import styles from './App.module.scss';
 import 'styles/_transitionStyles.scss';
 
 function App() {
-  const [boardState, setBoardState] = useLocalStorage('boardState', {});
+  const [boardState, setBoardState] = useLocalStorage('boardState', {
+    guesses: [],
+    solution: '',
+  });
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
   const [highContrast, setHighContrast] = useLocalStorage(
     'high-contrast',
@@ -40,7 +43,8 @@ function App() {
   });
   const [currentGuess, setCurrentGuess] = useState('');
   const [guesses, setGuesses] = useState(() => {
-    return boardState.guesses ?? [];
+    if (boardState.solution !== solution) return [];
+    return boardState.guesses;
   });
   const [isJiggling, setIsJiggling] = useState(false);
   const [isGameWon, setIsGameWon] = useState(false);
