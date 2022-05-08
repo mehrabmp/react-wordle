@@ -10,6 +10,7 @@ import useLocalStorage from 'hooks/useLocalStorage';
 import useAlert from 'hooks/useAlert';
 import {
   solution,
+  solutionIndex,
   isWordValid,
   findFirstUnusedReveal,
   addStatsForCompletedGame,
@@ -25,7 +26,7 @@ import 'styles/_transitionStyles.scss';
 function App() {
   const [boardState, setBoardState] = useLocalStorage('boardState', {
     guesses: [],
-    solution: '',
+    solutionIndex: '',
   });
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
   const [highContrast, setHighContrast] = useLocalStorage(
@@ -43,7 +44,7 @@ function App() {
   });
   const [currentGuess, setCurrentGuess] = useState('');
   const [guesses, setGuesses] = useState(() => {
-    if (boardState.solution !== solution) return [];
+    if (boardState.solutionIndex !== solutionIndex) return [];
     return boardState.guesses;
   });
   const [isJiggling, setIsJiggling] = useState(false);
@@ -59,7 +60,8 @@ function App() {
 
   // Show welcome modal
   useEffect(() => {
-    if (!boardState.solution) setTimeout(() => setIsInfoModalOpen(true), 1000);
+    if (!boardState.solutionIndex)
+      setTimeout(() => setIsInfoModalOpen(true), 1000);
     // eslint-disable-next-line
   }, []);
 
@@ -67,7 +69,7 @@ function App() {
   useEffect(() => {
     setBoardState({
       guesses,
-      solution,
+      solutionIndex,
     });
     // eslint-disable-next-line
   }, [guesses]);
